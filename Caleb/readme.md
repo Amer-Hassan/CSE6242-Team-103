@@ -21,7 +21,7 @@ The disappointment-induced penalty, DIS(i) is formulated via a probability-based
 - g is the EP of a good result 
 - b is the EP of a bad result
 
-*Note that to figure out what a "good punt" is, since there are no fixed outcomes as in converting a 4th-down or making/missing a field goal, the mean EP for historical punts was calculated at each field position, and then the individual punts that occurred at those field positions were assessed against those means to see how much worse they were from the means, to then be included in the DIS(i) calculation. 
+*Note that to figure out what a "good punt" is, since there are no fixed outcomes as in converting a 4th-down or making/missing a field goal, the mean EP for historical punts was calculated at each field position, and then the individual punts that occurred at those field positions were assessed against those means to see how much worse they were from the means, to then be included in the DIS(i) calculation.* 
 
 The model is trained on 2021-2024 aggregated data from nflverse to get the EP. The optimal sensitivity coefficient was tested on 2024 historical coaching data in intervals of .1 from 0-1, resulting in an optimal value of 0.6 when comparing the closeness of the recommendations to actual 2024 coaching decisions. The disappointment-adjusted model with the d coefficient of 0.6 was then tested on 2025 coaching decisions and compared with Amer's original model and resulted in a 11.53% increase in closeness to actual coaching decisions. 
 
