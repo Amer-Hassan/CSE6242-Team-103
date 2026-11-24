@@ -17,7 +17,7 @@ Interactive Flask + D3 research prototype. It compares *estimated* win probabili
 
 ## Data and methodology
 
-- `models/` has the **four models required by this application**: fourth-down conversion, field goal, punt field position, and win probability. The separate expected-points model was *not included* in the uploaded ZIP and is not required by this app.
+- `models/` has the **four models required by this application**: fourth-down conversion, field goal, punt field position, and win probability. 
 - `data/conversion_outcomes.csv` contains 2022–24 successful conversion outcomes. The decision engine conditions observed gains on yards to go and, where enough samples exist, on starting field position. The engine explicitly approximates touchdowns with seven points and one average kickoff state.
 - `data/field_goal_transitions.csv` contains the matched 2022–24 made/missed/blocked field-goal possessions. Only made kickoffs are used in the made-FG transition distribution; misses use a simplified kick-spot rule. Blocked and returned kicks are not separately modeled.
 - Punt remains a single predicted average opponent starting position; the empirical punt outcomes needed for a distribution **were not present**.
