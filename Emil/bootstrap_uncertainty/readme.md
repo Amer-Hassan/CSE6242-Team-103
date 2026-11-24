@@ -4,7 +4,6 @@ The value of going for it is calculated by weighing the two outcomes by an estim
 $$
 \begin{equation}
   p(d) = \min_{k \le d} \, c(k)
-  \label{eq:pconv}
 \end{equation}
 $$
 
@@ -19,7 +18,6 @@ $$
     7, & g \ge y,\\
     V(y - g), & g < y,
   \end{cases}
-  \label{eq:success}
 \end{equation}
 $$
  
@@ -31,7 +29,6 @@ $$
 \begin{equation}
   \mathrm{EP}_{\mathrm{go}}(y, d) = p(d)\, S(y, d) + \bigl(1 - p(d)\bigr)\, F(y),
   \qquad F(y) = -V(100 - y)
-  \label{eq:go}
 \end{equation}
 $$
 
