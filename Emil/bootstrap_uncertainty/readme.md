@@ -1,10 +1,10 @@
 We evaluate each fourth-down option (going for it, punting, or attempting a field goal) based on expected points (EP), which represent the next score in the half from the offense's perspective. To build the model, we use nflverse play-by-play data for the 2021-2025 NFL seasons, which encompasses 1,424 regular-season and playoff games, with 139,408 plays included in the estimates. Field position is valued with nflverse's own EP estimates. The value of a first down at each yard line is determined by the mean EP of first-down plays from that spot, smoothed with a centered five-yard moving average. Each outcome of a fourth-down decision is expressed as a resulting field position, valued with this curve. When the opponent takes possession, the value is the negative of their first-down value at that spot.
 The value of going for it is calculated by weighing the two outcomes by an estimated conversion probability. This probability is estimated as the share of third- and fourth-down runs and passes at the same distance that gained the required yards without a turnover, constrained so it doesn't rise with distance. The idea is that longer distances should remain harder to convert.
 
-\begin{equation}
+$$\begin{equation}
   p(d) = \min_{k \le d} \, c(k)
   \label{eq:pconv}
-\end{equation}
+\end{equation}$$
 
 where $d$ is the yards to go ($d = 1, \dots, 15$, with distances of 15 yards or more pooled into $d = 15$) and $c(k)$ is the share of third- and fourth-down runs and passes with $k$ yards to go that gained the required distance without a turnover. Taking the minimum over shorter distances keeps $p(d)$, the conversion probability, from increasing with distance.
  
