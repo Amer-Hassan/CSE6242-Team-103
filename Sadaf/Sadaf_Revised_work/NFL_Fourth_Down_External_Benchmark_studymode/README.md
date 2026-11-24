@@ -24,10 +24,6 @@ Interactive Flask + D3 research prototype. It compares *estimated* win probabili
 - All transition estimates are provisional. 2025 kickoff rule changes, end-of-quarter game state, touchdown conversion choices, blocked kicks, timeouts and selection effects are incompletely represented. Do not claim the new estimates are calibrated or more accurate without external validation.
 - `/api/predict` returns all three estimated win probabilities. `/api/sensitivity` compares decisions over nearby yards-to-go values.
 
-## Suggested evaluation
-
-Test the original and revised models on out-of-sample 2025 outcome states; report held-out distribution errors, recommendation agreement with external models (not yet measured), and behavioral usability results separately. Don't describe the modeling-output differences as performance improvements.
-
 
 ## Decision boundary map
 Click **Generate decision map** below the sensitivity chart. The server evaluates 64 scenarios (eight field positions by eight fourth-down distances) while holding score, quarter, clock, home/away and timeouts fixed. Color shows the highest *estimated* WP; dashed squares show model gaps under 2 percentage points. Hover or keyboard-focus to inspect all outcomes; click or press Enter to load a scenario into the main controls. Re-generate after changing the game context. The map is computed on demand and cached server-side; it is not an external benchmark or validated causal decision boundary.
