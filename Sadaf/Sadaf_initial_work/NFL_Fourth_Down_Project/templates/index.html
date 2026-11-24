@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fourth Down Lab | Decision Explorer</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script defer src="{{ url_for('static',filename='js/dashboard.js') }}"></script>
+</head><body>
+<main>
+<header class="site-header"><div><p class="eyebrow">FOURTH DOWN LAB <span class="dot">•</span> NFL DATA 2022–2024</p><h1>The next play changes everything.</h1><p class="lede">Explore how game context shifts the estimated odds of winning when a team goes for it, kicks a field goal, or punts.</p></div><span class="research-tag">RESEARCH PROTOTYPE</span></header>
+<div class="app-grid"><section class="panel setup"><div class="section-head"><div><p class="eyebrow">01 / BUILD YOUR SCENARIO</p><h2>Game situation</h2></div><button class="subtle" id="reset" type="button">Reset</button></div>
+<div class="field-wrap"><div class="field-top"><span>OFFENSE</span><span id="field-position-label">Opponent's 40</span><span>END ZONE</span></div><div id="field" aria-label="Football field showing the line of scrimmage"></div></div>
+<div class="controls">
+<label>Yards to go <output id="ydstogo_value">3</output><input id="ydstogo" type="range" min="1" max="15" value="3"></label>
+<label>Distance to goal <output id="yardline_100_value">40</output><input id="yardline_100" type="range" min="16" max="58" value="40"></label>
+<label>Score differential <output id="score_differential_value">−4</output><input id="score_differential" type="range" min="-21" max="21" value="-4"></label>
+<label>Quarter <select id="qtr"><option value="1">Q1</option><option value="2">Q2</option><option value="3">Q3</option><option value="4" selected>Q4</option></select></label>
+<label>Time left in quarter <output id="seconds_in_quarter_value">5:00</output><input id="seconds_in_quarter" type="range" min="20" max="900" step="10" value="300"></label>
+<label>Offense <select id="offense_is_home"><option value="1">Home</option><option value="0">Away</option></select></label>
+<label>Offense timeouts <select id="offense_timeouts"><option>0</option><option>1</option><option>2</option><option selected>3</option></select></label>
+<label>Defense timeouts <select id="defense_timeouts"><option>0</option><option>1</option><option>2</option><option selected>3</option></select></label>
+</div><div class="preset"><span>Try a scenario:</span><button type="button" data-preset="close">Close call</button><button type="button" data-preset="late">Late-game</button><button type="button" data-preset="mid">Midfield</button></div></section>
+<section class="panel results"><p class="eyebrow">02 / DECISION ANALYSIS</p><h2>Estimated chance of winning</h2><p class="small muted">All percentages are from the perspective of the team making the fourth-down decision.</p><div id="status" role="status" aria-live="polite">Calculating…</div><div id="chart"></div><div class="summary"><div><span>Highest estimated option</span><strong id="best">—</strong></div><div><span>Gap between top two</span><strong id="gap">—</strong></div><div><span>Decision readout</span><strong id="interpretation">—</strong></div></div><div class="model-stats" id="model-stats"></div></section></div>
+<section class="panel sensitivity"><div class="section-head"><div><p class="eyebrow">03 / SENSITIVITY EXPLORER</p><h2>What if it's another yard?</h2><p class="small muted">How the same game's estimated decision probabilities change as yards to go varies.</p></div><span class="legend"><i class="go"></i>Go <i class="fg"></i>FG <i class="punt"></i>Punt</span></div><div id="sensitivity"><p class="muted">Calculating sensitivity…</p></div></section>
+<section class="methodology"><h2>How to read these results</h2><div class="method-grid"><div><h3>Go for it</h3><p>Conversion probabilities from a trained Random Forest; successful gains are averaged across 2022–24 historical outcomes from comparable downs and field positions.</p></div><div><h3>Field goal</h3><p>Make probability from logistic regression; made-kick outcomes use observed historical post-kickoff possessions, while conventional misses use an approximate kick spot.</p></div><div><h3>Punt</h3><p>Predicted opponent field position from a Random Forest regression, currently evaluated at its mean rather than across a full punt distribution.</p></div></div><p class="warning" id="disclaimer">Research prototype. These are scenario-based model estimates, not validated causal estimates or coaching recommendations. Play clocks, scoring, kickoffs and end-of-game states are simplified; kickoff rules evolved after training.</p></section>
+<footer>Fourth Down Lab · Interactive D3 + Flask · Research use only</footer>
+</main></body></html>
