@@ -1,6 +1,6 @@
 # NFL Fourth-Down Decision Explorer
 
-Interactive Flask + D3 research prototype. It compares *estimated* win probabilities for going for it, kicking a field goal, or punting. This is **not** a validated causal or optimal-coaching decision engine.
+Interactive Flask + D3 research prototype. It compares *estimated* win probabilities for going for it, kicking a field goal, or punting. This is just for demo for optimal-coaching decision engine.
 
 ## Start on Mac / VS Code
 
