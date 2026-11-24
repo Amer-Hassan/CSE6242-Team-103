@@ -1,0 +1,270 @@
+{
+  "version": "study-v1",
+  "source": "Current trained engine; fixed post-play assumptions",
+  "scenarios": [
+    {
+      "id": "A01",
+      "set": "A",
+      "scenario": {
+        "yardline_100": 55,
+        "ydstogo": 15,
+        "score_differential": -4,
+        "qtr": 4,
+        "seconds_in_quarter": 300,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Punt": 25.51,
+        "Go for it": 24.41,
+        "Field goal": 21.37
+      },
+      "correct_best": "Punt",
+      "correct_gap_pp": 1.1,
+      "correct_close": true
+    },
+    {
+      "id": "A02",
+      "set": "A",
+      "scenario": {
+        "yardline_100": 45,
+        "ydstogo": 7,
+        "score_differential": -4,
+        "qtr": 4,
+        "seconds_in_quarter": 300,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Go for it": 27.54,
+        "Field goal": 26.46,
+        "Punt": 25.92
+      },
+      "correct_best": "Go for it",
+      "correct_gap_pp": 1.08,
+      "correct_close": true
+    },
+    {
+      "id": "A03",
+      "set": "A",
+      "scenario": {
+        "yardline_100": 40,
+        "ydstogo": 3,
+        "score_differential": -3,
+        "qtr": 4,
+        "seconds_in_quarter": 180,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Field goal": 38.8,
+        "Go for it": 37.9,
+        "Punt": 29.15
+      },
+      "correct_best": "Field goal",
+      "correct_gap_pp": 0.9,
+      "correct_close": true
+    },
+    {
+      "id": "A04",
+      "set": "A",
+      "scenario": {
+        "yardline_100": 40,
+        "ydstogo": 3,
+        "score_differential": -4,
+        "qtr": 4,
+        "seconds_in_quarter": 300,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Go for it": 34.16,
+        "Field goal": 29.04,
+        "Punt": 26.03
+      },
+      "correct_best": "Go for it",
+      "correct_gap_pp": 5.12,
+      "correct_close": false
+    },
+    {
+      "id": "A05",
+      "set": "A",
+      "scenario": {
+        "yardline_100": 35,
+        "ydstogo": 7,
+        "score_differential": -4,
+        "qtr": 4,
+        "seconds_in_quarter": 300,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Field goal": 31.79,
+        "Go for it": 27.3,
+        "Punt": 26.05
+      },
+      "correct_best": "Field goal",
+      "correct_gap_pp": 4.49,
+      "correct_close": false
+    },
+    {
+      "id": "A06",
+      "set": "A",
+      "scenario": {
+        "yardline_100": 30,
+        "ydstogo": 3,
+        "score_differential": 3,
+        "qtr": 3,
+        "seconds_in_quarter": 600,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Field goal": 70.23,
+        "Go for it": 64.73,
+        "Punt": 64.7
+      },
+      "correct_best": "Field goal",
+      "correct_gap_pp": 5.5,
+      "correct_close": false
+    },
+    {
+      "id": "B01",
+      "set": "B",
+      "scenario": {
+        "yardline_100": 50,
+        "ydstogo": 10,
+        "score_differential": -4,
+        "qtr": 4,
+        "seconds_in_quarter": 300,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Go for it": 26.02,
+        "Punt": 25.78,
+        "Field goal": 23.9
+      },
+      "correct_best": "Go for it",
+      "correct_gap_pp": 0.24,
+      "correct_close": true
+    },
+    {
+      "id": "B02",
+      "set": "B",
+      "scenario": {
+        "yardline_100": 45,
+        "ydstogo": 7,
+        "score_differential": 3,
+        "qtr": 3,
+        "seconds_in_quarter": 600,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Punt": 64.65,
+        "Go for it": 64.2,
+        "Field goal": 64.02
+      },
+      "correct_best": "Punt",
+      "correct_gap_pp": 0.45,
+      "correct_close": true
+    },
+    {
+      "id": "B03",
+      "set": "B",
+      "scenario": {
+        "yardline_100": 40,
+        "ydstogo": 3,
+        "score_differential": 0,
+        "qtr": 2,
+        "seconds_in_quarter": 240,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Field goal": 56.56,
+        "Go for it": 56.15,
+        "Punt": 55.45
+      },
+      "correct_best": "Field goal",
+      "correct_gap_pp": 0.41,
+      "correct_close": true
+    },
+    {
+      "id": "B04",
+      "set": "B",
+      "scenario": {
+        "yardline_100": 40,
+        "ydstogo": 1,
+        "score_differential": -4,
+        "qtr": 4,
+        "seconds_in_quarter": 300,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Go for it": 37.37,
+        "Field goal": 29.04,
+        "Punt": 26.06
+      },
+      "correct_best": "Go for it",
+      "correct_gap_pp": 8.33,
+      "correct_close": false
+    },
+    {
+      "id": "B05",
+      "set": "B",
+      "scenario": {
+        "yardline_100": 25,
+        "ydstogo": 7,
+        "score_differential": -4,
+        "qtr": 4,
+        "seconds_in_quarter": 300,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Field goal": 34.63,
+        "Go for it": 27.13,
+        "Punt": 26.08
+      },
+      "correct_best": "Field goal",
+      "correct_gap_pp": 7.5,
+      "correct_close": false
+    },
+    {
+      "id": "B06",
+      "set": "B",
+      "scenario": {
+        "yardline_100": 45,
+        "ydstogo": 7,
+        "score_differential": -3,
+        "qtr": 4,
+        "seconds_in_quarter": 180,
+        "offense_is_home": 1,
+        "offense_timeouts": 3,
+        "defense_timeouts": 3
+      },
+      "probabilities": {
+        "Field goal": 34.57,
+        "Go for it": 29.24,
+        "Punt": 29.09
+      },
+      "correct_best": "Field goal",
+      "correct_gap_pp": 5.33,
+      "correct_close": false
+    }
+  ]
+}
