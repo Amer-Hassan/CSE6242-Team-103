@@ -34,7 +34,7 @@ start minus the existing punt regression prediction) from 2022–24 matched
 punts. It evaluates many plausible future punt states, averaging their WP.
 
 
-## Section 05: Outcome-sampling uncertainty
+## Outcome-sampling uncertainty
 
 Press **Analyze uncertainty** to run 400 repeat resamples of the conditional
 historical outcome arrays. Displays centered percentile bootstrap ranges for
