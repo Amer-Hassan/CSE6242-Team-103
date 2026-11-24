@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fourth Down Lab | Classroom Study</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/study.css') }}">
+<script defer src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script defer src="{{ url_for('static',filename='js/study.js') }}"></script>
+</head><body><main class="study-shell">
+<header class="study-header"><div><p class="eyebrow">FOURTH DOWN LAB / CLASSROOM EVALUATION</p><h1>Decision comprehension study</h1><p class="muted">Compare a static probability table with an interactive visualization of the same model outputs.</p></div><a href="/">← Back to main dashboard</a></header>
+<section id="intro" class="card">
+<h2>Before you begin</h2>
+<p>You'll review 12 fictionalized game scenarios based on the project's trained estimates. This is a classroom interface evaluation, not an assessment of your football expertise. Each trial asks which action has the highest estimated win probability, the difference between the two best options, and whether that difference is below 2 percentage points.</p>
+<p>No names, emails, IP addresses, or responses are sent to or stored on the application server. Your results stay in this browser until you choose to download a CSV. Avoid refreshing mid-study: progress will be lost. Participation is voluntary; you can stop at any time.</p>
+<div class="form-grid"><label>Participant number (assigned by facilitator)<input id="participant" type="number" min="1" max="9999" step="1" placeholder="e.g. 7" required></label>
+<label>Football familiarity (1 = none; 5 = very familiar)<select id="football"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+<label>Comfort reading charts (1 = low; 5 = high)<select id="charts"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+<label>Previously used NFL decision analytics?<select id="prior"><option value="">Select…</option><option value="yes">Yes</option><option value="no">No</option></select></label></div>
+<label class="check"><input id="consent" type="checkbox"> I voluntarily agree to take part in this anonymous classroom evaluation.</label>
+<p class="muted small">The participant number determines a balanced A/B presentation order and which scenario set uses each interface. To run a pilot, use number 9999 and mark it as a pilot in your own study log; exclude pilot data from the study analysis.</p>
+<button type="button" id="begin">Start 12 tasks</button><p id="intro-error" class="error" role="alert"></p>
+</section>
+<section id="trial" class="card hidden" aria-live="polite">
+<div class="trial-head"><div><p class="eyebrow" id="progress">TASK 1 OF 12</p><h2 id="condition-title">Game situation</h2></div><span class="pill" id="condition-pill">Static table</span></div>
+<p id="game-context" class="context"></p><p class="muted small" id="instruction"></p>
+<div id="display-area" class="display-area"></div>
+<form id="answers">
+<fieldset><legend>1. Which action has the highest <em>estimated</em> chance of winning?</legend><div class="options"><label><input type="radio" name="best" value="Go for it" required> Go for it</label><label><input type="radio" name="best" value="Field goal"> Field goal</label><label><input type="radio" name="best" value="Punt"> Punt</label></div></fieldset>
+<label class="answer-field">2. Approximately how many <strong>percentage points</strong> separate the top two options? <input name="gap" type="number" min="0" max="100" step="0.01" placeholder="e.g. 1.50" required></label>
+<fieldset><legend>3. Is that gap strictly less than 2 percentage points?</legend><div class="options"><label><input type="radio" name="close" value="yes" required> Yes</label><label><input type="radio" name="close" value="no"> No</label></div></fieldset>
+<button type="submit" id="next-task">Submit task &amp; continue</button></form>
+<p class="muted small">The timer starts when a scenario appears and stops when you submit all three answers. No correctness feedback is shown between tasks.</p>
+</section>
+<section id="survey" class="card hidden"><p class="eyebrow" id="survey-progress">AFTER BLOCK 1</p><h2 id="survey-title">Rate this interface</h2><p class="muted">Rate each statement 1 (strongly disagree) to 5 (strongly agree).</p>
+<form id="survey-form"><div id="survey-items"></div><button type="submit">Continue</button></form></section>
+<section id="done" class="card hidden"><p class="eyebrow">STUDY COMPLETE</p><h2>Thank you for participating</h2><p>Choose which interface you preferred and optionally explain why. Then download the anonymous CSV for the facilitator.</p><label>Preferred interface<select id="preferred"><option value="">Choose…</option><option value="static">Static table</option><option value="interactive">Interactive chart</option><option value="neither">No preference</option></select></label><label>Optional feedback<textarea id="feedback" rows="3" maxlength="500" placeholder="What helped or confused you?"></textarea></label><button id="export" type="button">Download results CSV</button><p id="export-status" class="muted small" role="status"></p><p class="small muted">Results are not uploaded automatically. Give the downloaded CSV to your facilitator using the agreed collection method.</p></section>
+<footer>Classroom research prototype · Both conditions use the same model estimates · No test result establishes the true optimal NFL decision.</footer>
+</main></body></html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fourth Down Lab | Decision Explorer</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script defer src="{{ url_for('static',filename='js/dashboard.js') }}"></script>
+<script defer src="{{ url_for('static',filename='js/benchmark.js') }}"></script>
+</head><body>
+<main>
+<header class="site-header"><div><p class="eyebrow">FOURTH DOWN LAB <span class="dot">•</span> NFL DATA 2022–2024</p><h1>The next play changes everything.</h1><p class="lede">Explore how game context shifts the estimated odds of winning when a team goes for it, kicks a field goal, or punts.</p></div><span class="research-tag">RESEARCH PROTOTYPE</span></header>
+<div class="app-grid"><section class="panel setup"><div class="section-head"><div><p class="eyebrow">01 / BUILD YOUR SCENARIO</p><h2>Game situation</h2></div><button class="subtle" id="reset" type="button">Reset</button></div>
+<div class="field-wrap"><div class="field-top"><span>OFFENSE</span><span id="field-position-label">Opponent's 40</span><span>END ZONE</span></div><div id="field" aria-label="Football field showing the line of scrimmage"></div></div>
+<div class="controls">
+<label>Yards to go <output id="ydstogo_value">3</output><input id="ydstogo" type="range" min="1" max="15" value="3"></label>
+<label>Distance to goal <output id="yardline_100_value">40</output><input id="yardline_100" type="range" min="16" max="58" value="40"></label>
+<label>Score differential <output id="score_differential_value">−4</output><input id="score_differential" type="range" min="-21" max="21" value="-4"></label>
+<label>Quarter <select id="qtr"><option value="1">Q1</option><option value="2">Q2</option><option value="3">Q3</option><option value="4" selected>Q4</option></select></label>
+<label>Time left in quarter <output id="seconds_in_quarter_value">5:00</output><input id="seconds_in_quarter" type="range" min="20" max="900" step="10" value="300"></label>
+<label>Offense <select id="offense_is_home"><option value="1">Home</option><option value="0">Away</option></select></label>
+<label>Offense timeouts <select id="offense_timeouts"><option>0</option><option>1</option><option>2</option><option selected>3</option></select></label>
+<label>Defense timeouts <select id="defense_timeouts"><option>0</option><option>1</option><option>2</option><option selected>3</option></select></label>
+</div><div class="preset"><span>Try a scenario:</span><button type="button" data-preset="close">Close call</button><button type="button" data-preset="late">Late-game</button><button type="button" data-preset="mid">Midfield</button></div></section>
+<section class="panel results"><p class="eyebrow">02 / DECISION ANALYSIS</p><h2>Estimated chance of winning</h2><p class="small muted">All percentages are from the perspective of the team making the fourth-down decision.</p><div id="status" role="status" aria-live="polite">Calculating…</div><div id="chart"></div><div class="summary"><div><span>Highest estimated option</span><strong id="best">—</strong></div><div><span>Gap between top two</span><strong id="gap">—</strong></div><div><span>Decision readout</span><strong id="interpretation">—</strong></div></div><div class="model-stats" id="model-stats"></div></section></div>
+<section class="panel sensitivity"><div class="section-head"><div><p class="eyebrow">03 / SENSITIVITY EXPLORER</p><h2>What if it's another yard?</h2><p class="small muted">How the same game's estimated decision probabilities change as yards to go varies.</p></div><span class="legend"><i class="go"></i>Go <i class="fg"></i>FG <i class="punt"></i>Punt</span></div><div id="sensitivity"><p class="muted">Calculating sensitivity…</p></div></section>
+<section class="panel boundary" id="decision-map-panel">
+<div class="section-head boundary-head"><div>
+<p class="eyebrow">04 / DECISION BOUNDARY MAP</p>
+<h2>Where does the preferred decision change?</h2>
+<p class="small muted">Compare yards to go and distance to the opponent's goal. Score, quarter, time, home/away and timeouts stay fixed at your selected scenario.</p>
+</div><button id="generate-boundary" type="button">Generate decision map</button></div>
+<div class="boundary-key" aria-label="Decision-map legend">
+<span><i class="swatch go"></i>Go for it</span>
+<span><i class="swatch fg"></i>Field goal</span>
+<span><i class="swatch punt"></i>Punt</span>
+<span><i class="swatch close"></i>Close call (&lt; 2 pp)</span>
+</div>
+<div id="boundary-status" class="small muted" role="status" aria-live="polite">Generate the map to compare 64 game situations.</div>
+<div class="boundary-layout"><div class="boundary-chart" id="decision-boundary" aria-label="Decision boundary heatmap"></div>
+<aside class="boundary-details" id="boundary-details">
+<h3>Explore a matchup</h3><p class="small muted">Hover over a square to compare all three win-probability estimates. Click a square to set that scenario in the main dashboard.</p>
+</aside></div>
+<p class="small muted boundary-footnote">Colors indicate the highest <em>estimated</em> win probability, not the observed NFL coaching choice. Dashed outlines mark gaps below 2 percentage points. The heatmap uses the same provisional post-play assumptions as the main model.</p>
+</section>
+<section class="panel uncertainty" id="uncertainty-panel">
+<div class="section-head boundary-head"><div>
+<p class="eyebrow">05 / OUTCOME-SAMPLING UNCERTAINTY</p>
+<h2>How stable are these estimated differences?</h2>
+<p class="small muted">Bootstrap historical post-play outcomes while keeping trained model probabilities fixed. This is <strong>not</strong> a calibrated confidence interval for true NFL win probability.</p>
+</div><button id="generate-uncertainty" type="button">Analyze uncertainty</button></div>
+<div id="uncertainty-status" class="small muted" role="status" aria-live="polite">Select a scenario, then analyze outcome-sampling variability.</div>
+<div class="uncertainty-layout">
+<div class="uncertainty-viz" id="uncertainty-chart" aria-label="Estimated win probabilities and bootstrap intervals"></div>
+<aside class="boundary-details uncertainty-details" id="uncertainty-details"><h3>What the ranges mean</h3><p class="small muted">An interval shows how the model's estimate changes when historical outcome observations are resampled. It does not cover uncertainty in the trained models or unobserved counterfactuals.</p></aside>
+</div>
+<p class="small muted boundary-footnote" id="uncertainty-footnote">Point estimates are from the main decision engine. Intervals are preliminary and conditional on fixed models; do not interpret them as calibrated 95% confidence intervals.</p>
+</section>
+
+<section class="panel benchmark" id="benchmark-panel">
+<div class="section-head"><div>
+<p class="eyebrow">06 / EXTERNAL MODEL BENCHMARK</p>
+<h2>How does our model compare with nfl4th?</h2>
+<p class="small muted">Paired predictions for 90 real fourth-down situations in held-out 2025 games. Explore agreement, disagreements and estimated win-probability differences.</p>
+</div><span class="benchmark-pill">2025 · 90 cases</span></div>
+<div class="benchmark-filters" aria-label="Benchmark filters">
+<label>Actual coaching choice<select id="bm-action"><option value="all">All decisions</option><option value="Go for it">Go for it</option><option value="Field goal">Field goal</option><option value="Punt">Punt</option></select></label>
+<label>Yards to go<select id="bm-distance"><option value="all">All distances</option><option value="short">1–3 yards</option><option value="medium">4–7 yards</option><option value="long">8–15 yards</option></select></label>
+<label>Comparison<select id="bm-scope"><option value="all">All shared-action cases</option><option value="three">All three actions available</option><option value="close">Close calls (&lt; 2 pp, three actions)</option><option value="clear">Other cases (≥ 2 pp, three actions)</option></select></label>
+<label>Recommendations<select id="bm-agreement"><option value="all">Agreements & disagreements</option><option value="disagree">Disagreements only</option><option value="agree">Agreements only</option></select></label>
+</div>
+<div id="benchmark-status" class="small muted" role="status" aria-live="polite">Loading benchmark comparisons…</div>
+<div class="benchmark-kpis" id="benchmark-kpis"></div>
+<div class="benchmark-layout">
+<div class="benchmark-visual"><h3>Recommendation comparison</h3><p class="small muted">Rows: our model; columns: nfl4th. The confusion matrix includes only cases with all three estimates available.</p><div id="benchmark-matrix"></div></div>
+<div class="benchmark-visual"><h3>Estimated WP differences</h3><p class="small muted">Mean absolute difference in percentage points, calculated on matched available actions.</p><div id="benchmark-mae"></div></div>
+</div>
+<div class="benchmark-cases-head"><div><h3>Explore real 2025 cases</h3><p class="small muted">Select a row to compare both models' estimated win probabilities. Values may differ even when recommendations agree.</p></div><label>Sort by<select id="bm-sort"><option value="gap">Largest difference in action WP</option><option value="week">Game week</option><option value="close">Smallest estimated decision gap</option></select></label></div>
+<div class="benchmark-cases-layout"><div class="benchmark-table-wrap"><table class="benchmark-table"><thead><tr><th>Game</th><th>Situation</th><th>Coach</th><th>Our model</th><th>nfl4th</th><th>Match?</th></tr></thead><tbody id="benchmark-tbody"></tbody></table></div><aside id="benchmark-selected" class="boundary-details benchmark-selected"><h3>Select a game</h3><p class="small muted">Click a scenario to see action-by-action win probabilities.</p></aside></div>
+<p class="small muted benchmark-footnote">Methodology: The 90-case sample deliberately includes 30 observed Go, 30 Field Goal and 30 Punt decisions; it does not reflect NFL action frequencies. The 27 missing nfl4th punt estimates are excluded from three-action comparisons, not imputed. Agreement measures consistency with a reference model, <strong>not</strong> true decision accuracy. Under-2-pp grouping uses our own model's top-two gap on complete three-action cases. Estimates are from the benchmark run and may differ from the latest app engine if model inputs or data have changed.</p>
+</section>
+
+<section class="methodology"><h2>How to read these results</h2><div class="method-grid"><div><h3>Go for it</h3><p>Conversion probabilities from a trained Random Forest; successful gains are averaged across 2022–24 historical outcomes from comparable downs and field positions.</p></div><div><h3>Field goal</h3><p>Make probability from logistic regression; made-kick outcomes use observed historical post-kickoff possessions, while conventional misses use an approximate kick spot.</p></div><div><h3>Punt</h3><p>Random Forest predicts the opponent starting position; when the historical punt-outcomes CSV is available, the engine integrates field-position and time variability from 2022–24 residuals. Otherwise it retains the point estimate.</p></div></div><p class="warning" id="disclaimer">Research prototype. These are scenario-based model estimates, not validated causal estimates or coaching recommendations. Play clocks, scoring, kickoffs and end-of-game states are simplified; kickoff rules evolved after training.</p></section>
+<footer><a href="/study" style="color:#87ddbe;font-weight:700">Open classroom Study Mode</a> · Fourth Down Lab · Interactive D3 + Flask · Research use only</footer>
+</main></body></html>
